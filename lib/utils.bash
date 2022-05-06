@@ -57,6 +57,11 @@ download_release() {
     arch=amd64
     ;;
   esac
+  
+  # prior to v2, releases for MacOS were only amd64.
+  if [[ "$platform" == "darwin" && `echo "$version" | cut -d . -f 1` -lt 2 ]]; then
+    arch=amd64
+  fi
 
   url="$GH_REPO/releases/download/v${version}/${tool_cmd}-v${version}-${platform}-${arch}.zip"
 
